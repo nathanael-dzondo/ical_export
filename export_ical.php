@@ -1,10 +1,9 @@
 <?php
-try {
-    $pdo = new PDO('mysql:host=localhost;dbname=sejour2025;charset=utf8', 'root', '');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
+$pdo = new PDO(
+    'mysql:host=' . getenv('db_host') . ';dbname=' . getenv('db_name') . ';charset=utf8',
+    getenv('db_user'),
+    getenv('db_pass')
+);
 
 $stmt = $pdo->query("SELECT arrive, depart FROM reservations");
 $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
